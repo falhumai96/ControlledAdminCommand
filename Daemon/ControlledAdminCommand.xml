@@ -1,0 +1,12 @@
+<service>
+  <id>ControlledAdminCommand</id>
+  <name>Controlled Admin Command</name>
+  <description>This service provides a controlled way to execute Windows commands with elevated
+    (administrator) privileges without requiring the user to run everything as admin.</description>
+  <executable>pwsh</executable>
+  <arguments>-c %BASE%\ControlledAdminCommandDaemon.Ps1</arguments>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>8</keepFiles>
+  </log>
+</service>
