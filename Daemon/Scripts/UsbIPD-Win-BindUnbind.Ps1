@@ -1,4 +1,4 @@
-param(
+ param(
     [Parameter(Mandatory = $false)]
     [string[]] $CommandArgs,
 
@@ -52,8 +52,8 @@ function Write-ToFile {
 
 # Validate minimal args
 if ($CommandArgs.Count -lt 3) {
-    Write-ToFile -Path $CommandSTDErrPath -Content "Insufficient commands."
-    if ($CommandExitStatusPath) { Set-Content -Path $CommandExitStatusPath -Value 1 -Force }
+    #Write-ToFile -Path $CommandSTDErrPath -Content "Insufficient commands."
+    #if ($CommandExitStatusPath) { Set-Content -Path $CommandExitStatusPath -Value 1 -Force }
     Exit 1
 }
 
@@ -69,8 +69,8 @@ switch ($type) {
     "bus" { $usbArgs += @("-b", $id) }
     "hardware" { $usbArgs += @("-i", $id) }
     default {
-        Write-ToFile -Path $CommandSTDErrPath -Content "Unknown type '$type'."
-        if ($CommandExitStatusPath) { Set-Content -Path $CommandExitStatusPath -Value 1 -Force }
+        #Write-ToFile -Path $CommandSTDErrPath -Content "Unknown type '$type'."
+        #if ($CommandExitStatusPath) { Set-Content -Path $CommandExitStatusPath -Value 1 -Force }
         Exit 1
     }
 }
@@ -93,33 +93,35 @@ try {
     $proc.Start() | Out-Null
 
     # Capture or suppress stdout
-    if ($CommandSTDOutputPath) {
-        Write-DirIfNotExist $CommandSTDOutputPath
-        $proc.StandardOutput.ReadToEnd() | Out-File -FilePath $CommandSTDOutputPath -Encoding UTF8 -Force
-    }
-    else {
-        $proc.StandardOutput.ReadToEnd() | Out-Null
-    }
+    #if ($CommandSTDOutputPath) {
+    #    Write-DirIfNotExist $CommandSTDOutputPath
+    #    $proc.StandardOutput.ReadToEnd() | Out-File -FilePath $CommandSTDOutputPath -Encoding UTF8 -Force
+    #}
+    #else {
+    #    $proc.StandardOutput.ReadToEnd() | Out-Null
+    #}
+    $proc.StandardOutput.ReadToEnd() | Out-Null
 
     # Capture or suppress stderr
-    if ($CommandSTDErrPath) {
-        Write-DirIfNotExist $CommandSTDErrPath
-        $proc.StandardError.ReadToEnd() | Out-File -FilePath $CommandSTDErrPath -Encoding UTF8 -Force
-    }
-    else {
-        $proc.StandardError.ReadToEnd() | Out-Null
-    }
+    #if ($CommandSTDErrPath) {
+    #    Write-DirIfNotExist $CommandSTDErrPath
+    #    $proc.StandardError.ReadToEnd() | Out-File -FilePath $CommandSTDErrPath -Encoding UTF8 -Force
+    #}
+    #else {
+    #    $proc.StandardError.ReadToEnd() | Out-Null
+    #}
+    $proc.StandardError.ReadToEnd() | Out-Null
 
     $proc.WaitForExit()
     $exitCode = $proc.ExitCode
 }
 catch {
-    Write-ToFile -Path $CommandSTDErrPath -Content $_.Exception.Message
+    #Write-ToFile -Path $CommandSTDErrPath -Content $_.Exception.Message
     $exitCode = 1
 }
 
 # Write exit code
-if ($CommandExitStatusPath) {
-    Write-DirIfNotExist $CommandExitStatusPath
-    Set-Content -Path $CommandExitStatusPath -Value $exitCode -Force
-}
+#if ($CommandExitStatusPath) {
+#    Write-DirIfNotExist $CommandExitStatusPath
+#    Set-Content -Path $CommandExitStatusPath -Value $exitCode -Force
+#}
