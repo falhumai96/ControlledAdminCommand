@@ -1,5 +1,3 @@
 {
-    "TestScript": "TestScript.Ps1",
-    "UsbIPDBindUnbind": "UsbIPD-Win-BindUnbind.Ps1",
-    "RemovePendingUpdates": "RemovePendingUpdates.Ps1"
+    "UsbIPDBindUnbind": "UsbIPD-Win-BindUnbind.Ps1"
 }
