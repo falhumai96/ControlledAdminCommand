@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Only include files for console host -->
+    <Compile Include="ServerCommon.cs" />
+    <Compile Include="ServerStandAlone.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- PowerShell SDK compatible with net6.0 -->
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.4" />
+    <PackageReference Include="System.Management.Automation" Version="7.5.4" />
+  </ItemGroup>
+
+</Project>
